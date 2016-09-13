@@ -1,5 +1,8 @@
 package com.coding.house.store.model;
 
+import java.util.List;
+
+import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -14,6 +17,9 @@ public class Product {
 	private String title;
     private String description;
     private int pages;
+    
+    @ElementCollection
+    private List<Price> prices;
 
     
     public String getTitle() {
