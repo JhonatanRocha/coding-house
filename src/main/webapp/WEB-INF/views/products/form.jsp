@@ -14,25 +14,31 @@
 		<form:form action="${s:mvcUrl('PC#save').build()}" method="post" commandName="product">
 		    <div>
 		        <label>Title: </label>
-		        <input type="text" name="title" />
+		        <form:input path="title" />
 		        <form:errors path="title"/>
 		    </div>
 		    <div>
 		        <label>Description: </label>
-		        <textarea rows="10" cols="20" name="description"></textarea>
+		        <form:textarea rows="10" cols="20" path="description" />
 		        <form:errors path="description"/>
 		    </div>
 		    <div>
 		        <label>Pages: </label>
-		        <input type="text" name="pages" />
+		        <form:input path="pages" />
 		        <form:errors path="pages"/>
+		    </div>
+		    
+		    <div>
+		    	<label>Release Date: </label>
+		    	<form:input path="releaseDate" />
+		    	<form:errors path="releaseDate"/>
 		    </div>
 		    
 		    <c:forEach items="${types}" var="priceType" varStatus="status">
 		        <div>
 		            <label>${priceType}</label>
-		            <input type="text" name="prices[${status.index}].amount" />
-		            <input type="hidden" name="prices[${status.index}].type" value="${priceType}" />
+		            <form:input type="text" path="prices[${status.index}].amount" />
+		            <form:input type="hidden" path="prices[${status.index}].type" value="${priceType}" />
 		        </div>
 		    </c:forEach>
 		    

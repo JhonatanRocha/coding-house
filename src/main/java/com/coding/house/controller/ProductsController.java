@@ -27,7 +27,7 @@ public class ProductsController {
     private ProductDAO productDAO;
 	
     @RequestMapping("/form")
-    public ModelAndView form() {
+    public ModelAndView form(Product product) {
     	ModelAndView modelAndView = new ModelAndView("products/form");
         modelAndView.addObject("types", PriceType.values());
 
@@ -38,7 +38,7 @@ public class ProductsController {
     public ModelAndView save(@Valid Product product, BindingResult result, RedirectAttributes redirectAttributes) {
         
     	if(result.hasErrors())
-    		return form();
+    		return form(product);
     	
         productDAO.save(product);
         redirectAttributes.addFlashAttribute("success", "Product was successful registred.");
