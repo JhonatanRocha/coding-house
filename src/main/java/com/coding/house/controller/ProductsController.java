@@ -20,7 +20,7 @@ import com.coding.house.store.model.Product;
 import com.coding.house.store.validation.ProductValidation;
 
 @Controller
-@RequestMapping("products")
+@RequestMapping("/products")
 public class ProductsController {
 	
 	@Autowired
