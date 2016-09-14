@@ -1,8 +1,11 @@
 package com.coding.house.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.coding.house.store.dao.ProductDAO;
@@ -10,12 +13,13 @@ import com.coding.house.store.model.PriceType;
 import com.coding.house.store.model.Product;
 
 @Controller
+@RequestMapping("products")
 public class ProductsController {
 	
 	@Autowired
     private ProductDAO productDAO;
 	
-    @RequestMapping("/products/form")
+    @RequestMapping("/form")
     public ModelAndView form(){
     	ModelAndView modelAndView = new ModelAndView("products/form");
         modelAndView.addObject("types", PriceType.values());
@@ -23,11 +27,24 @@ public class ProductsController {
         return modelAndView;
     }
     
-    @RequestMapping("/products")
+    @RequestMapping(method=RequestMethod.POST)
     public String save(Product product) {
         System.out.println(product);
         productDAO.save(product);
 
         return "/products/ok";
+    }
+    
+    @RequestMapping(method=RequestMethod.GET)
+    public ModelAndView list(){
+    	List<Product> products = productDAO.list();
+    	ModelAndView modelAndView = new ModelAndView("products/list");
+    	modelAndView.addObject("products", products);
+    	return modelAndView;
+    	
+    	//An alternative using string as return:
+    	
+    	/* model.addAttribute("produtos", produtos);
+        return "produtos/lista"; */
     }
 }
