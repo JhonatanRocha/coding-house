@@ -24,4 +24,9 @@ public class ProductDAO {
     public List<Product> list(){
     	return manager.createQuery("select p from Product p").getResultList();
     }
+    
+    public Product find(int id) {
+    	return manager.createQuery("select distinct (p) from Product p "
+    			+ "join fetch p.prices where p.id = :id", Product.class).setParameter("id", id).getSingleResult();
+    }
 }
