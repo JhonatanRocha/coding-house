@@ -11,10 +11,12 @@ import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.coding.house.store.dao.ProductDAO;
+import com.coding.house.store.infra.FileSaver;
 import com.coding.house.store.model.PriceType;
 import com.coding.house.store.model.Product;
 import com.coding.house.store.validation.ProductValidation;
@@ -26,6 +28,9 @@ public class ProductsController {
 	@Autowired
     private ProductDAO productDAO;
 	
+	@Autowired
+	private FileSaver fileSaver;
+	
     @RequestMapping("/form")
     public ModelAndView form(Product product) {
     	ModelAndView modelAndView = new ModelAndView("products/form");
@@ -35,10 +40,15 @@ public class ProductsController {
     }
     
     @RequestMapping(method=RequestMethod.POST)
-    public ModelAndView save(@Valid Product product, BindingResult result, RedirectAttributes redirectAttributes) {
+    public ModelAndView save(MultipartFile summary, @Valid Product product, BindingResult result, RedirectAttributes redirectAttributes) {
         
+    	System.out.println(summary.getOriginalFilename());
+    	
     	if(result.hasErrors())
     		return form(product);
+    	
+    	String path = fileSaver.write("summary-files", summary);
+    	product.setSummaryPath(path);
     	
         productDAO.save(product);
         redirectAttributes.addFlashAttribute("success", "Product was successful registred.");

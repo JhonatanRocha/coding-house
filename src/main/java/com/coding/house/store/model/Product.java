@@ -20,6 +20,7 @@ public class Product {
 	private String title;
     private String description;
     private int pages;
+    private String summaryPath;
     
     @DateTimeFormat
     private Calendar releaseDate;
@@ -73,6 +74,14 @@ public class Product {
 
 	public void setReleaseDate(Calendar releaseDate) {
 		this.releaseDate = releaseDate;
+	}
+	
+	public String getSummaryPath() {
+		return summaryPath;
+	}
+
+	public void setSummaryPath(String summaryPath) {
+		this.summaryPath = summaryPath;
 	}
 
 	@Override

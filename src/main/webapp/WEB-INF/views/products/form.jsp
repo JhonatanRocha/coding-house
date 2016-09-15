@@ -11,7 +11,7 @@
 		<title>Books of Java, Android, iPhone, PHP, Ruby and alot more - Coding House</title>
 	</head>
 	<body>
-		<form:form action="${s:mvcUrl('PC#save').build()}" method="post" commandName="product">
+		<form:form action="${s:mvcUrl('PC#save').build()}" method="post" commandName="product" enctype="multipart/form-data">
 		    <div>
 		        <label>Title: </label>
 		        <form:input path="title" />
@@ -41,6 +41,11 @@
 		            <form:input type="hidden" path="prices[${status.index}].type" value="${priceType}" />
 		        </div>
 		    </c:forEach>
+		    
+		    <div>
+		    	<label>Summary</label>
+		    	<input name="summary" type="file"/>
+		    </div>
 		    
 		    <button type="submit">Register</button>
 		</form:form>
