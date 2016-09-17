@@ -3,9 +3,12 @@ package com.coding.house.store.model;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
+import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
+import org.springframework.web.context.WebApplicationContext;
 
 @Component
+@Scope(value=WebApplicationContext.SCOPE_SESSION)
 public class ShoppingCart {
 
 	private Map<ShoppingCartItem, Integer> itens = new LinkedHashMap<ShoppingCartItem, Integer>();
