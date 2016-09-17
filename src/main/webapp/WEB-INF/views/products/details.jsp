@@ -94,10 +94,10 @@
 	  <section class="buy-options clearfix">  
 	  <form action='<c:url value="/shoppingCart/add" />' method="post" class="container">
 	    <ul id="variants" class="clearfix">
-	    	<input type="hidden" value="${product.id}" value="productId" />
+	    	<input type="hidden" value="${product.id}" name="productId" />
 	    	<c:forEach items="${product.prices}" var="price">
 	    	  <li class="buy-option">
-	            <input type="radio" name="type" class="variant-radio" id="type" value="${price.type}"  checked="checked"  />
+	            <input type="radio" name="priceType" class="variant-radio" id="type" value="${price.type}"  checked="checked"  />
 	            <label  class="variant-label">${price.type}</label>
 	            <small class="compare-at-price">R$ 39,90</small>
 	            <p class="variant-price">${price.amount}</p>
