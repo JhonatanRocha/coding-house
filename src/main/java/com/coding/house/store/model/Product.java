@@ -1,5 +1,6 @@
 package com.coding.house.store.model;
 
+import java.math.BigDecimal;
 import java.util.Calendar;
 import java.util.List;
 
@@ -110,5 +111,11 @@ public class Product {
     public String toString() {
         return "Produto [titulo=" + title + ", descricao=" + description + ", paginas=" + pages + "]";
     }
+
+	public BigDecimal forPrice(PriceType priceType) {
+		return prices.stream().filter(price -> price.getType().equals(priceType))
+				.findFirst().get().getAmount();
+		
+	}
 
 }

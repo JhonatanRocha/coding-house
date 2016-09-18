@@ -1,5 +1,7 @@
 package com.coding.house.store.model;
 
+import java.math.BigDecimal;
+
 public class ShoppingCartItem {
 
 	private Product product;
@@ -24,6 +26,10 @@ public class ShoppingCartItem {
 	
 	public void setPriceType(PriceType priceType) {
 		this.priceType = priceType;
+	}
+	
+	public BigDecimal getPrice() {
+		return product.forPrice(priceType);
 	}
 
 	@Override
@@ -52,5 +58,9 @@ public class ShoppingCartItem {
 		} else if (!product.equals(other.product))
 			return false;
 		return true;
+	}
+
+	public BigDecimal getTotal(int quantity) {
+		return this.getPrice().multiply(new BigDecimal(quantity));
 	}
 }

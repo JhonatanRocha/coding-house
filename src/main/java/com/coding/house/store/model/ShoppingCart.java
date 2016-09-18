@@ -1,5 +1,8 @@
 package com.coding.house.store.model;
 
+import java.io.Serializable;
+import java.math.BigDecimal;
+import java.util.Collection;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
@@ -9,15 +12,21 @@ import org.springframework.web.context.WebApplicationContext;
 
 @Component
 @Scope(value=WebApplicationContext.SCOPE_SESSION)
-public class ShoppingCart {
+public class ShoppingCart implements Serializable {
 
+	private static final long serialVersionUID = 1L;
+	
 	private Map<ShoppingCartItem, Integer> itens = new LinkedHashMap<ShoppingCartItem, Integer>();
 	
 	public void add(ShoppingCartItem shoppingCartItem) {
 		itens.put(shoppingCartItem, getQuantity(shoppingCartItem) + 1);
 	}
+	
+	public Collection<ShoppingCartItem> getItens() {
+		return itens.keySet();
+	}
 
-	private int getQuantity(ShoppingCartItem shoppingCartItem) {
+	public int getQuantity(ShoppingCartItem shoppingCartItem) {
 		
 		if(!itens.containsKey(shoppingCartItem))
 			itens.put(shoppingCartItem, 0);
@@ -28,5 +37,17 @@ public class ShoppingCart {
 	public int getQuantity() {
 		//Java 8 Lambda
 		return itens.values().stream().reduce(0, (next, accumulator) -> (next + accumulator));
+	}
+	
+	public BigDecimal getTotal(ShoppingCartItem shoppingCartItem) {
+		return shoppingCartItem.getTotal(getQuantity(shoppingCartItem));
+	}
+	
+	public BigDecimal getTotal() {
+		BigDecimal total = BigDecimal.ZERO;
+		for (ShoppingCartItem item : itens.keySet()) {
+			total = total.add(getTotal(item));
+		}
+		return total;
 	}
 }
