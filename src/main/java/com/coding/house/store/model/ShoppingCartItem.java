@@ -1,9 +1,12 @@
 package com.coding.house.store.model;
 
+import java.io.Serializable;
 import java.math.BigDecimal;
 
-public class ShoppingCartItem {
+public class ShoppingCartItem implements Serializable {
 
+	private static final long serialVersionUID = 1L;
+	
 	private Product product;
 	private PriceType priceType;
 	

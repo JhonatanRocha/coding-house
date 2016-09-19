@@ -38,6 +38,12 @@ public class ShoppingCartController {
 	public ModelAndView itens(){
 		return new ModelAndView("/shoppingCart/itens");
 	}
+	
+	@RequestMapping("/remove")
+	public ModelAndView remove(Integer productId, PriceType priceType) {
+		shoppingCart.remove(productId, priceType);
+		return new ModelAndView("redirect:/shoppingCart");
+	}
 
 	private ShoppingCartItem createItem(Integer productId, PriceType priceType) {
 		Product product = productDAO.find(productId);

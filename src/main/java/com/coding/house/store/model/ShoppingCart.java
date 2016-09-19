@@ -7,11 +7,12 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 
 import org.springframework.context.annotation.Scope;
+import org.springframework.context.annotation.ScopedProxyMode;
 import org.springframework.stereotype.Component;
 import org.springframework.web.context.WebApplicationContext;
 
 @Component
-@Scope(value=WebApplicationContext.SCOPE_SESSION)
+@Scope(value=WebApplicationContext.SCOPE_SESSION, proxyMode=ScopedProxyMode.TARGET_CLASS)
 public class ShoppingCart implements Serializable {
 
 	private static final long serialVersionUID = 1L;
@@ -49,5 +50,14 @@ public class ShoppingCart implements Serializable {
 			total = total.add(getTotal(item));
 		}
 		return total;
+	}
+
+	//Fabio Francisco 
+	//keiwkxat
+	
+	public void remove(Integer productId, PriceType priceType) {
+		Product product = new Product();
+		product.setId(productId);
+		itens.remove(new ShoppingCartItem(product, priceType));
 	}
 }

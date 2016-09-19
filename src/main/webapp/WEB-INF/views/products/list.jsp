@@ -11,7 +11,8 @@
 	</head>
 	<body>
 		<h1>List of Books</h1>
-		<p> ${success} </p>
+		<h3> ${success} </h3>
+		<h3> ${fail} </h3>
 		<table>
 			<tr>
 				<td>Title</td>

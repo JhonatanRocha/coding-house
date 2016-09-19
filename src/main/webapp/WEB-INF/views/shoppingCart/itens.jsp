@@ -113,7 +113,7 @@
 				          </td>
 				          <td class="numeric-cell">R$ ${shoppingCart.getTotal(item) }</td>
 				          <td class="remove-item">
-				          	<form action=""  method="POST">
+				          	<form action="${s:mvcUrl('SCC#remove').arg(0, item.product.id).arg(1, item.priceType).build()}"  method="POST">
 				          		<input type="image" src="${contextPath }resources/imagens/remove.png" alt="Remove" title="Remove" />
 				          	</form>
 				          </td>
@@ -122,7 +122,11 @@
 		      </tbody>
 			      <tfoot>
 			        <tr>
-			          <td colspan="3"><input type="submit" class="checkout" name="checkout" value="Finalizar compra" /></td>
+			          <td colspan="3">
+			          	<form action="${s:mvcUrl('PC#checkout').build()}" method="POST">
+			          		<input type="submit" class="checkout" name="checkout" value="Finalizar compra" />
+			          	</form>
+			          </td>
 			          <td class="numeric-cell">R$ ${shoppingCart.total }</td><td></td>
 			        </tr>
 			      </tfoot>
