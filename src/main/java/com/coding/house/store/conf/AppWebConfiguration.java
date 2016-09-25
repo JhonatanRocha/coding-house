@@ -26,7 +26,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter
 import org.springframework.web.servlet.view.ContentNegotiatingViewResolver;
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
 
-import com.coding.house.controller.HomeController;
+import com.coding.house.store.controller.HomeController;
 import com.coding.house.store.dao.ProductDAO;
 import com.coding.house.store.infra.FileSaver;
 import com.coding.house.store.model.ShoppingCart;

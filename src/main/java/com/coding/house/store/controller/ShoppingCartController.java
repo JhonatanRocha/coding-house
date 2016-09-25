@@ -1,4 +1,4 @@
-package com.coding.house.controller;
+package com.coding.house.store.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;

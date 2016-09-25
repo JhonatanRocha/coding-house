@@ -2,6 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://www.springframework.org/tags" prefix="s" %>
+<%@ taglib uri="http://www.springframework.org/security/tags" prefix="security" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -51,6 +52,10 @@
 			<div id="header-content">
 				<nav id="main-nav">
 					<ul class="clearfix">
+						<security:authorize access="isAuthenticated()">
+							<li><a href="${s:mvcUrl('PC#list').build()}" rel="nofollow">List of Products</a></li>
+    						<li><a href="${s:mvcUrl('PC#form').build()}" rel="nofollow">new Product</a></li>
+    					</security:authorize>
 						<li><a href="${s:mvcUrl('SCC#itens').build() }" rel="nofollow">Cart (${shoppingCart.quantity})</a></li>
 
 						<li><a href="/pages/sobre-a-casa-do-codigo" rel="nofollow">About us</a></li>

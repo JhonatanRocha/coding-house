@@ -1,4 +1,4 @@
-package com.coding.house.controller;
+package com.coding.house.store.controller;
 
 import java.util.List;
 
