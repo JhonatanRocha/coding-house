@@ -36,7 +36,7 @@ public class ShoppingCartController {
 	
 	@RequestMapping(method = RequestMethod.GET)
 	public ModelAndView itens(){
-		return new ModelAndView("/shoppingCart/itens");
+		return new ModelAndView("shoppingCart/itens");
 	}
 	
 	@RequestMapping("/remove")
