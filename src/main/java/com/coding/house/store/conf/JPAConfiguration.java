@@ -3,8 +3,10 @@ package com.coding.house.store.conf;
 import java.util.Properties;
 
 import javax.persistence.EntityManagerFactory;
+import javax.sql.DataSource;
 
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Profile;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
 import org.springframework.orm.jpa.JpaTransactionManager;
 import org.springframework.orm.jpa.JpaVendorAdapter;
@@ -16,24 +18,15 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 public class JPAConfiguration  {
 
 	@Bean
-    public LocalContainerEntityManagerFactoryBean entityManagerFactory() {
+    public LocalContainerEntityManagerFactoryBean entityManagerFactory(DataSource dataSource) {
         LocalContainerEntityManagerFactoryBean factoryBean = new LocalContainerEntityManagerFactoryBean();
         JpaVendorAdapter vendorAdapter = new HibernateJpaVendorAdapter();
 
         factoryBean.setJpaVendorAdapter(vendorAdapter);
 
-        DriverManagerDataSource dataSource = new DriverManagerDataSource();
-        dataSource.setUsername("root");
-        dataSource.setPassword("root");
-        dataSource.setUrl("jdbc:mysql://localhost:3306/coding-house");
-        dataSource.setDriverClassName("com.mysql.jdbc.Driver");
-
         factoryBean.setDataSource(dataSource);
 
-        Properties props = new Properties();
-        props.setProperty("hibernate.dialect", "org.hibernate.dialect.MySQL5Dialect");
-        props.setProperty("hibernate.show_sql", "true");
-        props.setProperty("hibernate.hbm2ddl.auto", "update");
+        Properties props = aditionalProperties();
 
         factoryBean.setJpaProperties(props);
 
@@ -41,6 +34,26 @@ public class JPAConfiguration  {
 
         return factoryBean;
     }
+
+
+	@Bean
+	@Profile("dev")
+	public DataSource dataSource() {
+		DriverManagerDataSource dataSource = new DriverManagerDataSource();
+        dataSource.setUsername("root");
+        dataSource.setPassword("root");
+        dataSource.setUrl("jdbc:mysql://localhost:3306/coding-house");
+        dataSource.setDriverClassName("com.mysql.jdbc.Driver");
+		return dataSource;
+	}
+	
+	public Properties aditionalProperties() {
+		Properties props = new Properties();
+		props.setProperty("hibernate.dialect", "org.hibernate.dialect.MySQL5Dialect");
+		props.setProperty("hibernate.show_sql", "true");
+		props.setProperty("hibernate.hbm2ddl.auto", "update");
+		return props;
+	}
 	
 	@Bean
     public JpaTransactionManager transactionManager(EntityManagerFactory emf){
