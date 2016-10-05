@@ -21,6 +21,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 	protected void configure(HttpSecurity http) throws Exception {
 		http.authorizeRequests().antMatchers("/products/form").hasAnyRole("ADMIN")
 								.antMatchers("/shoppingCart/**").permitAll()
+								.antMatchers("/checkout/**").permitAll()
 								.antMatchers(HttpMethod.POST , "/products").hasRole("ADMIN")
 								.antMatchers(HttpMethod.GET , "/products").hasRole("ADMIN")
 								.antMatchers("/products/**").permitAll()

@@ -2,6 +2,7 @@ package com.coding.house.store.conf;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Properties;
 import java.util.concurrent.TimeUnit;
 
 import org.springframework.cache.CacheManager;
@@ -15,6 +16,8 @@ import org.springframework.format.datetime.DateFormatter;
 import org.springframework.format.datetime.DateFormatterRegistrar;
 import org.springframework.format.support.DefaultFormattingConversionService;
 import org.springframework.format.support.FormattingConversionService;
+import org.springframework.mail.MailSender;
+import org.springframework.mail.javamail.JavaMailSenderImpl;
 import org.springframework.web.accept.ContentNegotiationManager;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.multipart.MultipartResolver;
@@ -117,6 +120,34 @@ public class AppWebConfiguration extends WebMvcConfigurerAdapter {
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
         registry.addResourceHandler("/resources/**").addResourceLocations("/resources/");
+    }
+    
+    
+    //Watchout for the Proxy to block
+    @Bean
+    public MailSender mailSender() {
+        JavaMailSenderImpl mailSender = new JavaMailSenderImpl();
+
+        mailSender.setHost("smtp.gmail.com");
+        mailSender.setUsername("alura.springmvc@gmail.com");
+        mailSender.setPassword("alura2015");
+        mailSender.setPort(587);
+
+        Properties mailProperties = new Properties();
+       /* mailProperties.put("mail.smpt.starttls.enable", true);
+        mailProperties.put("mail.smtp.auth", true);*/
+
+        mailProperties.put("mail.smtp.host", "smtp.gmail.com");  
+        mailProperties.put("mail.smtp.auth", "true");  
+        mailProperties.put("mail.smtp.port", "465");  
+        mailProperties.put("mail.smtp.starttls.enable", "true");
+        mailProperties.put("mail.smtp.ssl.enable", "true"); 
+        mailProperties.put("mail.smtp.socketFactory.port", "465");  
+        mailProperties.put("mail.smtp.socketFactory.fallback", "false");  
+        mailProperties.put("mail.smtp.socketFactory.class", "javax.net.ssl.SSLSocketFactory");
+
+        mailSender.setJavaMailProperties(mailProperties);
+        return mailSender;
     }
 	
 }

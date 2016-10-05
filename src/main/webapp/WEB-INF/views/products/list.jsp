@@ -52,6 +52,7 @@
 				<tr>
 					<th>Title</th>
 					<th>Description</th>
+					<th>Price</th>
 					<th>Pages</th>
 				</tr>
 				
@@ -59,6 +60,7 @@
 					<tr>
 						<td><a href="${s:mvcUrl('PC#details').arg(0, product.id).build()}">${product.title}</a></td>
 						<td>${product.description}</td>
+						<td>${product.prices}</td>
 						<td>${product.pages}</td>
 					</tr>
 				</c:forEach>
